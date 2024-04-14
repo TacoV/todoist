@@ -1,10 +1,13 @@
 # todoist
 
+Runs on Python 3.12!
+
 ```
 cd functions
-python -m venv venv
+python3.12 -m venv venv
 source venv/bin/activate
-(venv) pip install -r requirements.txt
+(venv) python3.12 -m pip install -r requirements.txt
 (venv) firebase serve
+...
 (venv) deactivate
 ```
