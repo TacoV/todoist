@@ -7,9 +7,9 @@ from firebase_admin import initialize_app
 
 initialize_app()
 
-import telebot
+from telebot import TeleBot, types
 
-bot = telebot.TeleBot('TOKEN TODO') 
+bot = TeleBot('TOKEN TODO') 
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -17,5 +17,19 @@ def send_welcome(message):
 
 @https_fn.on_request()
 def on_request_example(req: https_fn.Request) -> https_fn.Response:
-    print(bot.process_new_updates([req]))
-    return https_fn.Response("see print")
+    # Borrowing heavily from example at
+    # https://github.com/eternnoir/pyTelegramBotAPI/blob/master/examples/multibot/main.py
+    
+    secret_token = req.headers.get('X-Telegram-Bot-Api-Secret-Token')
+    if secret_token is None:
+        code403 = https_fn.FunctionsErrorCode('permission-denied')
+        raise https_fn.HttpsError(code403, "Pass you shall not")
+
+    if req.headers.get('content-type') != 'application/json':
+        code500 = https_fn.FunctionsErrorCode('unimplemented')
+        raise https_fn.HttpsError(code500, "We need application/json data")
+
+    json_string = req.get_data().decode('utf-8')
+    update = types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    return ''
