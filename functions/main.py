@@ -20,16 +20,20 @@ def on_request_example(req: https_fn.Request) -> https_fn.Response:
     # Borrowing heavily from example at
     # https://github.com/eternnoir/pyTelegramBotAPI/blob/master/examples/multibot/main.py
     
+    # TODO: load correct token from .env, for now it is hardcoded to 'myTest'
     secret_token = req.headers.get('X-Telegram-Bot-Api-Secret-Token')
-    if secret_token is None:
+    if secret_token != 'myTest':
         code403 = https_fn.FunctionsErrorCode('permission-denied')
         raise https_fn.HttpsError(code403, "Pass you shall not")
 
     if req.headers.get('content-type') != 'application/json':
+        print("Wrong type of data sent!")
         code500 = https_fn.FunctionsErrorCode('unimplemented')
         raise https_fn.HttpsError(code500, "We need application/json data")
 
+    print("Parsing the update")
     json_string = req.get_data().decode('utf-8')
     update = types.Update.de_json(json_string)
+    print("Processing the update")
     bot.process_new_updates([update])
     return ''
