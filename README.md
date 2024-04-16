@@ -9,5 +9,7 @@ source venv/bin/activate
 (venv) python3.12 -m pip install -r requirements.txt
 (venv) firebase serve
 ...
+(venv) firebase deploy
+...
 (venv) deactivate
 ```

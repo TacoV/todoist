@@ -36,6 +36,7 @@ def handle_webhook_callback(req: https_fn.Request) -> https_fn.Response:
 
     print("Parsing the update")
     json_string = req.get_data().decode('utf-8')
+    print("Found:", json_string)
     update = types.Update.de_json(json_string)
 
     print("Processing the update")
