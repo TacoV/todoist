@@ -19,9 +19,11 @@ def handle_webhook_callback(req: https_fn.Request) -> https_fn.Response:
     # https://github.com/eternnoir/pyTelegramBotAPI/blob/master/examples/webhook_examples/webhook_flask_echo_bot.py
 
     if req.headers.get('X-Telegram-Bot-Api-Secret-Token') != SECRET_TOKEN:
+        print('No or incorrect secret_token')
         return https_fn.Response(status=404)
 
     if req.headers.get('content-type') != 'application/json':
+        print('Incorrect content-type')
         return https_fn.Response(status=403)
 
     json_string = req.get_data().decode('utf-8')
