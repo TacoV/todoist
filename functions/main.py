@@ -13,7 +13,7 @@ initialize_app()
 
 from telebot import TeleBot, types
 
-bot = TeleBot(TELEGRAM_API_TOKEN)
+bot = TeleBot(TELEGRAM_API_TOKEN.value)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -24,7 +24,7 @@ def handle_webhook_callback(req: https_fn.Request) -> https_fn.Response:
     # Borrowing heavily from example at
     # https://github.com/eternnoir/pyTelegramBotAPI/blob/master/examples/multibot/main.py
     
-    if req.headers.get('X-Telegram-Bot-Api-Secret-Token') != SECRET_TOKEN:
+    if req.headers.get('X-Telegram-Bot-Api-Secret-Token') != SECRET_TOKEN.value:
         print("No or incorrect token sent!")
         code403 = https_fn.FunctionsErrorCode('permission-denied')
         raise https_fn.HttpsError(code403, "Pass you shall not")
