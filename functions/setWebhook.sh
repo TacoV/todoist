@@ -1,8 +1,8 @@
 #!/bin/bash
 source .env
-if [ -z ${APP_URL+x} ] || [ -z ${TELEGRAM_API_TOKEN+x} ]
+if [ -z ${TELEGRAM_URL+x} ] || [ -z ${TELEGRAM_API_TOKEN+x} || -z ${TELEGRAM_SECRET} ]
 then
-    echo "Please set APP_URL and TELEGRAM_API_TOKEN in .env, eg APP_URL=https://telegram-ckjew3asd1.a.run.app etc"
+    echo "Please define TELEGRAM_* vars in .env as seens in .env.example"
 else 
-    curl -d "url=${APP_URL}&secret_token=${SECRET_TOKEN}" "https://api.telegram.org/bot${TELEGRAM_API_TOKEN}/setWebhook"
+    curl -d "url=${TELEGRAM_URL}&secret_token=${TELEGRAM_SECRET}" "https://api.telegram.org/bot${TELEGRAM_API_TOKEN}/setWebhook"
 fi

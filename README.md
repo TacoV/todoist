@@ -20,4 +20,4 @@ firebase deploy
 deactivate
 ```
 
-Then add APP_URL to the generated .env.xyz-file and rename it to .env, so you can run setWebhook.sh when needed.
+Then add TELEGRAM_URL to the generated .env.xyz-file and rename it to .env, so you can run setWebhook.sh when needed.
