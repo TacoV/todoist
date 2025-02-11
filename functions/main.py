@@ -26,9 +26,15 @@ def telegram_webhook(req: https_fn.Request) -> https_fn.Response:
 
     bot = TeleBot(TELEGRAM_API_TOKEN)
 
+    @bot.message_handler(commands=['drive'])
+    def catch_all(message:types.Message):
+        bot.send_message(message.chat.id, "Add task to Inbox")
+
+    # https://developer.todoist.com/rest/v2/?python#create-a-new-task
     @bot.message_handler(func=lambda message: True)
     def catch_all(message:types.Message):
-        bot.send_message(message.chat.id, "Message received: "+message.text)
+        api = TodoistAPI(TODOIST_TOKEN)
+        api.add_task(content = message.text)
 
     json_string = req.get_data().decode('utf-8')
     update = types.Update.de_json(json_string)

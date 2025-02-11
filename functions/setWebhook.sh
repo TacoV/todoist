@@ -1,6 +1,6 @@
 #!/bin/bash
 source .env
-if [ -z ${TELEGRAM_URL+x} ] || [ -z ${TELEGRAM_API_TOKEN+x} || -z ${TELEGRAM_SECRET} ]
+if [ -z ${TELEGRAM_URL+x} ] || [ -z ${TELEGRAM_API_TOKEN+x} ] || [ -z ${TELEGRAM_SECRET+x} ]
 then
     echo "Please define TELEGRAM_* vars in .env as seens in .env.example"
 else 

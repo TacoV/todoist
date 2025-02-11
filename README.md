@@ -8,10 +8,8 @@ npm install -g firebase-tools npm
 firebase login
 cd functions/
 python3.12 -m venv venv
-# on a codespace, install outside of venv for better code completion:
-# python3.12 -m pip install -r requirements.txt
-source venv/bin/activate
-python3.12 -m pip install -r requirements.txt
+venv/bin/pip install -r requirements.txt
+
 # on a local machine, test using:
 # firebase serve
 ...
