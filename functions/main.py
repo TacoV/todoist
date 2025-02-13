@@ -4,6 +4,7 @@ from telebot import TeleBot, types
 from todoist_api_python.api import TodoistAPI
 
 import json
+import time
 
 initialize_app()
 
@@ -28,6 +29,8 @@ def telegram_webhook(req: https_fn.Request) -> https_fn.Response:
 
     @bot.message_handler(commands=['drive'])
     def catch_all(message:types.Message):
+        bot.send_message(message.chat.id, "I will send a message in 10 seconds...")
+        time.sleep(10)
         bot.send_message(message.chat.id, "Add task to Inbox")
 
     # https://developer.todoist.com/rest/v2/?python#create-a-new-task
