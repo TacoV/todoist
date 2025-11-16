@@ -74,13 +74,14 @@ def nightly_prio_upgrade(event: scheduler_fn.ScheduledEvent) -> None:
         project = api.get_project(task.project_id)
         return "" + project.name + ": " + prio_ball[task.priority] + " " + task.content + "\n"
 
-    for task in api.get_tasks(filter='(overdue|today)&!p1&!shared'):
-        task.priority = task.priority + 1
-        api.update_task(
-            task_id=task.id,
-            priority=task.priority
-        )
-        message += describe_task(task)
+    for tasks in api.filter_tasks(query='(overdue|today)&!p1&!shared'):
+        for task in tasks:
+            task.priority = task.priority + 1
+            api.update_task(
+                task_id=task.id,
+                priority=task.priority
+            )
+            message += describe_task(task)
 
     bot = TeleBot(TELEGRAM_API_TOKEN)
 

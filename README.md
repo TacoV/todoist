@@ -7,7 +7,7 @@ Step by step deployment
 npm install -g firebase-tools npm
 firebase login
 cd functions/
-python3.12 -m venv venv
+python3.13 -m venv venv
 venv/bin/pip install -r requirements.txt
 
 # on a local machine, test using:
