@@ -55,7 +55,7 @@ def todoist_webhook(req: https_fn.Request) -> https_fn.Response:
     due = task["due"]
     if due and 'is_recurring' in due and due["is_recurring"]:
         api.update_task(
-            task_id=task["id"],
+            task_id=task["v2_id"],
             priority=1
         )
 
